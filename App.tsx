@@ -1,10 +1,15 @@
 import React from "react";
 import { ThemeProvider } from "styled-components";
 import AppLoading from "expo-app-loading";
+import "intl";
+import "intl/locale-data/jsonp/pt-BR";
+
+import { BorderlessButton, RectButton } from "react-native-gesture-handler";
 
 import theme from "./src/global/styles/theme";
-import Dashboard from "./src/screens/Dashboard";
-import { Register } from "./src/screens/Register";
+
+import { NavigationContainer } from "@react-navigation/native";
+import { AppRoutes } from "./src/routes/app.routes";
 
 import {
   useFonts,
@@ -25,7 +30,9 @@ export default function App() {
   }
   return (
     <ThemeProvider theme={theme}>
-      <Register />
+      <NavigationContainer>
+        <AppRoutes />
+      </NavigationContainer>
     </ThemeProvider>
   );
 }
