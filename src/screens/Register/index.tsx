@@ -25,10 +25,10 @@ import {
   TransactionTypes,
 } from "./styles";
 
-interface FormData {
-  name: string;
-  amount: string;
-}
+export type FormData = {
+  [name: string]: any;
+  [amount: number]: any;
+};
 
 type NavigationProps = {
   navigate: (screen: string) => void;
@@ -56,8 +56,6 @@ export function Register() {
     reset,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
-
-  const dataKey = "@gofinance:transactions";
 
   const [transactionType, setTransactionType] = useState("");
   const [categoryModalOpen, setCategoryModalOpen] = useState(false);
@@ -87,14 +85,15 @@ export function Register() {
       id: String(uuid.v4()),
       name: form.name,
       amount: form.amount,
-      type: transactionType,
+      transactionType,
       category: category.key,
       date: new Date(),
     };
 
     try {
-      const data = await AsyncStorage.getItem(dataKey);
+      const dataKey = "@gofinances:transactions";
 
+      const data = await AsyncStorage.getItem(dataKey);
       const currentData = data ? JSON.parse(data) : [];
 
       const dataFormatted = [...currentData, newTransaction];
