@@ -4,7 +4,7 @@ import AppLoading from "expo-app-loading";
 import "intl";
 import "intl/locale-data/jsonp/pt-BR";
 
-import { BorderlessButton, RectButton } from "react-native-gesture-handler";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import theme from "./src/global/styles/theme";
 
@@ -29,10 +29,12 @@ export default function App() {
     return <AppLoading />;
   }
   return (
-    <ThemeProvider theme={theme}>
-      <NavigationContainer>
-        <AppRoutes />
-      </NavigationContainer>
-    </ThemeProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <ThemeProvider theme={theme}>
+        <NavigationContainer>
+          <AppRoutes />
+        </NavigationContainer>
+      </ThemeProvider>
+    </GestureHandlerRootView>
   );
 }
